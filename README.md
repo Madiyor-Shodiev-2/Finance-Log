@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
@@ -60,6 +61,10 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+=======
+# Finance-Log
+WhereMoneyGoes is a minimalist web application for tracking personal income and expenses. It helps users monitor their cash flow, analyze daily, monthly, and yearly spending, and categorize transactions (e.g., food, transportation, salary, etc.). Designed as an MVP, the app focuses on simplicity, clarity, and essential financial insights.
+>>>>>>> dd8f45c87f5318ce483d5e28139c2d9fa6413d38
 =======
 # Finance-Log
 WhereMoneyGoes is a minimalist web application for tracking personal income and expenses. It helps users monitor their cash flow, analyze daily, monthly, and yearly spending, and categorize transactions (e.g., food, transportation, salary, etc.). Designed as an MVP, the app focuses on simplicity, clarity, and essential financial insights.
