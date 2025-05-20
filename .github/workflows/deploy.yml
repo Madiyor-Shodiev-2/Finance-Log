@@ -21,7 +21,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i key.pem root@185.191.141.82 << 'EOF'
             echo "✅ Connected to server"
 
-            cd /var/www/FinanceLog   # Путь до проекта
+            cd /var/www/Finance-Log   # Путь до проекта
             git pull origin main     # Обновляем код
 
             docker compose build     # Собираем контейнеры
