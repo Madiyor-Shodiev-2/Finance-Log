@@ -19,7 +19,7 @@ services:
             POSTGRES_USER: ${DB_USERNAME}
             POSTGRES_PASSWORD: ${DB_PASSWORD}
         ports:
-            - "5433:${DB_PORT}"
+            - "5433:5432"
         volumes:
             - finance-log:/var/lib/postgresql/data
         networks:
@@ -27,7 +27,7 @@ services:
 
     nginx:
         image: nginx:alpine
-        container_name: content-hub-nginx
+        container_name: finance-log-nginx
         ports:
             - "${APP_PORT}:80"
         volumes:
