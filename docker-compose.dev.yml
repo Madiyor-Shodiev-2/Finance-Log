@@ -3,17 +3,17 @@ services:
         build:
             context: docker
             dockerfile: Dockerfile.dev
-        container_name: media-atlas-app
+        container_name: finance-log-app
         volumes:
             - .:/var/www
         depends_on:
             - db
         networks:
-            - media-atlas
+            - finance-log
 
     db:
         image: postgres:15
-        container_name: media-atlas-db
+        container_name: finance-log-db
         environment:
             POSTGRES_DB: ${DB_DATABASE}
             POSTGRES_USER: ${DB_USERNAME}
@@ -21,9 +21,9 @@ services:
         ports:
             - "5433:${DB_PORT}"
         volumes:
-            - media-atlas:/var/lib/postgresql/data
+            - finance-log:/var/lib/postgresql/data
         networks:
-            - media-atlas
+            - finance-log
 
     nginx:
         image: nginx:alpine
@@ -36,10 +36,10 @@ services:
         depends_on:
             - app
         networks:
-            - media-atlas
+            - finance-log
 
 volumes:
-    media-atlas:
+    finance-log:
 
 networks:
-    media-atlas:
+    finance-log:
