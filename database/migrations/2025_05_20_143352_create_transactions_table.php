@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->decimal('amount', 10, 2);
+            $table->decimal('amount', 17, 2);
             $table->date('date');
             $table->boolean('type')->default(true);
             $table->foreignId('category_id')->constrained()->onDelete('cascade');

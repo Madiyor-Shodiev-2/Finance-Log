@@ -16,12 +16,18 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $id = Auth::user()->id;
 
+        if (Auth::check()){
+            $id = Auth::user()->id; //fix it
+        }
+        else{
+            $id = 9999;
+
+        }
+        
         $daily = TransactionSummaryService::getDaily($id);
         $month = TransactionSummaryService::getMonthly($id);
         $week = TransactionSummaryService::getWeekly($id);
-
 
         $categories = Category::all();
 
@@ -32,24 +38,19 @@ class TransactionController extends Controller
             'weekly' => $week
         ]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        
-    }
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreTransactionRequest $request)
     {
+        if(!Auth::check()){
+            return redirect()->back()->withErrors(['auth' => 'Пожалуйста, зарегистрируйтесь или войдите в систему, чтобы добавить транзакцию.']);
+        }
+
         $id = Auth::user()->id;
         
         $data = $request->validate([
-            'amount' => 'required',
+            'amount' => 'required|integer',
             'type' => 'required',
             'category_id' => 'required|integer|exists:categories,id',
         ]);

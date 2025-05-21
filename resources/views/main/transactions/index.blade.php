@@ -4,6 +4,27 @@
 
     <div class=" flex flex-col items-center justify-center p-6">
         <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+            @if($errors->has('auth'))
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                    <a href="{{ route('login') }}">Login</a>
+                </ul>
+            </div>
+            @elseif($errors->all())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <ol>{{ $error }}</ol>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
+
+
             <h1 class="text-2xl font-bold mb-4 text-center">Add Transaction</h1>
             <form action="{{ route('transactions.store') }}" method="POST">
                 @csrf
