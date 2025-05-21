@@ -18,23 +18,37 @@ top-0 z-50 mx-4 px-3">
             </div>
         </div>
 
+        @if(auth()->check())
         <!-- Right Section -->
         <div class="sm:flex my-1" style="margin-left: 20rem; margin-bottom:0rem;">
             <div class="stats-block flex items-center gap-1">
                 <span class="text-sm font-medium text-gray-600">Balance:</span>
-                <span class="text-sm font-semibold text-gray-900">$24,589.34</span>
-            </div>
-            <div class="stats-block flex items-center gap-2">
-                <span class="h-2.5 w-2.5 rounded-full bg-green-500"></span>
-                <span class="text-sm font-medium text-green-700">+2.4%</span>
+                <span class="text-sm font-semibold text-gray-900">${{ auth()->user()->balance }}</span>
             </div>
             <div class="profile-block">
                 <button type="button" class="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hover:ring-2 hover:ring-offset-2 hover:ring-indigo-300">
                     <span class="sr-only">Open user menu</span>
-                    <div class="h-9 w-9 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-medium shadow-sm">JD</div>
+                    <div class="h-9 w-9 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-medium shadow-sm">
+                        {{ auth()->user()->name }}
+                    </div>
                 </button>
             </div>
         </div>
+        <div class="stats-block flex items-center gap-2">
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                @method("POST")
+                <button type="submit" class="btn btn-danger">Logout</buttojn>
+            </form>
+        </div>
+        @else
+        <div class="sm:flex my-1" style="margin-left: 35rem; margin-bottom:0rem;">
+            <div class="stats-block flex items-center gap-1">
+                <a href="{{ route('login') }}" class="btn btn-outline-primary border-b-2 border-indigo-600 text-sm font-semibold text-gray-900" style="text-decoration-line:underline">Login</a>
+                <a href="{{ route('register') }}" class="btn btn-outline-primary border-b-2 border-indigo-600 text-sm font-semibold text-gray-900" style="text-decoration-line:underline">Register</a>
+            </div>
+        </div>
+        @endif
 
         <!-- Mobile menu button -->
         <div class="flex items-center sm:hidden">
@@ -71,15 +85,9 @@ top-0 z-50 mx-4 px-3">
         </a>
         <a href="#" class="border-l-4 border-transparent text-gray-700 hover:bg-gray-50 hover:border-gray-300 font-medium">
             <svg class="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-            </svg>
-            Investments
-        </a>
-        <a href="#" class="border-l-4 border-transparent text-gray-700 hover:bg-gray-50 hover:border-gray-300 font-medium">
-            <svg class="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
-            Reports
+            Categories
         </a>
         @if(auth()->check())
         <div class="mobile-profile">
@@ -108,9 +116,7 @@ top-0 z-50 mx-4 px-3">
         <div class="mobile-profile">
             <div class="flex items-center gap-3">
                 <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
-            </div>
-            <div class="flex items-center gap-3">
-                <a href="{{ route('register') }}" class="btn btn-accept">Register</a>
+                <a href="{{ route('register') }}" class="btn btn-primary">Register</a>
             </div>
         </div>
         @endif
