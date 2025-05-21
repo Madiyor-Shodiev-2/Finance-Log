@@ -1,0 +1,50 @@
+.cyber-button {
+    background-color: blue;
+    height: 3rem;
+}
+
+.cyber-button:hover {
+    background-color: darkblue;
+}
+
+.cyber-theme {
+    padding: 2rem 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.cyber-form {
+    max-width: 400px;
+    width: 100%;
+    background: rgb(16, 5, 20);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 0 24px rgba(16, 71, 5, 0.2);
+}
+
+.cyber-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.cyber-input {
+    background: #1e1e1e;
+    border: 1px solid #333;
+    padding: 0.75rem 1rem;
+    color: #fff;
+    border-radius: 6px;
+    font-size: 1rem;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.cyber-input:focus {
+    border-color: rgb(46, 146, 33);
+}
