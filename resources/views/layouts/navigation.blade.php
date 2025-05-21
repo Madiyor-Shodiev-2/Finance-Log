@@ -107,7 +107,10 @@ top-0 z-50 mx-4 px-3">
         @else
         <div class="mobile-profile">
             <div class="flex items-center gap-3">
-                <a href="" class="btn btn-primary">Login</a>
+                <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="{{ route('register') }}" class="btn btn-accept">Register</a>
             </div>
         </div>
         @endif
