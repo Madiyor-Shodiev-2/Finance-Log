@@ -17,7 +17,7 @@ top-0 z-50 mx-4 px-3">
                 <a href="#" class="border-b-2 border-transparent text-sm font-medium text-gray-700 hover:text-gray-900 hover:border-gray-300">Categories</a>
             </div>
         </div>
-    
+
         <!-- Right Section -->
         <div class="sm:flex my-1" style="margin-left: 20rem; margin-bottom:0rem;">
             <div class="stats-block flex items-center gap-1">
@@ -63,12 +63,6 @@ top-0 z-50 mx-4 px-3">
         x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 translate-y-1"
         class="sm:hidden bg-white shadow-lg ring-1 ring-black ring-opacity-5 mobile-menu">
-        <a href="#" class="bg-indigo-50 border-l-4 border-indigo-600 text-indigo-700 font-semibold">
-            <svg class="h-5 w-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-            Dashboard
-        </a>
         <a href="#" class="border-l-4 border-transparent text-gray-700 hover:bg-gray-50 hover:border-gray-300 font-medium">
             <svg class="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
@@ -87,6 +81,7 @@ top-0 z-50 mx-4 px-3">
             </svg>
             Reports
         </a>
+        @if(auth()->check())
         <div class="mobile-profile">
             <div class="flex items-center gap-3">
                 <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-medium shadow-inner">JD</div>
@@ -109,5 +104,12 @@ top-0 z-50 mx-4 px-3">
                 </span>
             </div>
         </div>
+        @else
+        <div class="mobile-profile">
+            <div class="flex items-center gap-3">
+                <a href="" class="btn btn-primary">Login</a>
+            </div>
+        </div>
+        @endif
     </div>
 </nav>
