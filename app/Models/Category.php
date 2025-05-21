@@ -14,7 +14,6 @@ class Category extends Model
 
     protected $fillable =[
             "label",
-            "type"
         ];
 
     public function transactions()

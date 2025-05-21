@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTransactionRequest;
+use App\Service\TransactionSummaryService;
 use App\Http\Requests\UpdateTransactionRequest;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Transaction;
+use App\Models\Category;
 
 class TransactionController extends Controller
 {
@@ -13,7 +16,21 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
+        $id = Auth::user()->id;
+
+        $daily = TransactionSummaryService::getDaily($id);
+        $month = TransactionSummaryService::getMonthly($id);
+        $week = TransactionSummaryService::getWeekly($id);
+
+
+        $categories = Category::all();
+
+        return view('main.transactions.index', [
+            'categories' => $categories,
+            'daily' => $daily,
+            'monthly' => $month,
+            'weekly' => $week
+        ]);
     }
 
     /**
@@ -21,7 +38,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -29,38 +46,23 @@ class TransactionController extends Controller
      */
     public function store(StoreTransactionRequest $request)
     {
-        //
-    }
+        $id = Auth::user()->id;
+        
+        $data = $request->validate([
+            'amount' => 'required',
+            'type' => 'required',
+            'category_id' => 'required|integer|exists:categories,id',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Transaction $transaction)
-    {
-        //
-    }
+        Transaction::create([
+            'amount' => $data['amount'],
+            'category_id' => $data['category_id'],
+            'type' => $data['type'],
+            'user_id' => $id,
+            'date' => $data['date'] ?? now(),
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Transaction $transaction)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateTransactionRequest $request, Transaction $transaction)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Transaction $transaction)
-    {
-        //
+        return redirect()->back();
     }
 }

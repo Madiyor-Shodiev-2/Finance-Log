@@ -12,8 +12,7 @@ top-0 z-50 mx-4 px-3">
                 <span class="ml-2 text-xl font-bold text-gray-900">Finance<span class="text-indigo-700">Log</span></span>
             </a>
             <div class="hidden sm:flex nav-links">
-                <a href="#" class="border-b-2 border-indigo-600 text-sm font-semibold text-gray-900">Dashboard</a>
-                <a href="#" class="border-b-2 border-transparent text-sm font-medium text-gray-700 hover:text-gray-900 hover:border-gray-300">Transactions</a>
+                <a href="{{ route('transactions.index') }}" class="border-b-2 border-transparent text-sm font-medium text-gray-700 hover:text-gray-900 hover:border-gray-300">Transactions</a>
                 <a href="#" class="border-b-2 border-transparent text-sm font-medium text-gray-700 hover:text-gray-900 hover:border-gray-300">Categories</a>
             </div>
         </div>
@@ -42,7 +41,7 @@ top-0 z-50 mx-4 px-3">
             </form>
         </div>
         @else
-        <div class="sm:flex my-1" style="margin-left: 35rem; margin-bottom:0rem;">
+        <div class="sm:flex my-1" style="margin-left: 40rem; margin-bottom:0rem;">
             <div class="stats-block flex items-center gap-1">
                 <a href="{{ route('login') }}" class="btn btn-outline-primary border-b-2 border-indigo-600 text-sm font-semibold text-gray-900" style="text-decoration-line:underline">Login</a>
                 <a href="{{ route('register') }}" class="btn btn-outline-primary border-b-2 border-indigo-600 text-sm font-semibold text-gray-900" style="text-decoration-line:underline">Register</a>
@@ -77,7 +76,7 @@ top-0 z-50 mx-4 px-3">
         x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 translate-y-1"
         class="sm:hidden bg-white shadow-lg ring-1 ring-black ring-opacity-5 mobile-menu">
-        <a href="#" class="border-l-4 border-transparent text-gray-700 hover:bg-gray-50 hover:border-gray-300 font-medium">
+        <a href="{{ route('transactions.index') }}" class="border-l-4 border-transparent text-gray-700 hover:bg-gray-50 hover:border-gray-300 font-medium">
             <svg class="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
             </svg>
