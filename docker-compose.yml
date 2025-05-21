@@ -9,7 +9,7 @@ services:
         volumes:
             - .:/var/www
         depends_on:
-            - db
+            - finance-log
         networks:
             - finance-log
 
