@@ -62,22 +62,6 @@ class TransactionController extends Controller
          *  real balansdan esa (0-10=-10) (-10-10=-20)
          * */
 
-
-        /** Agarda income bo'lsa,  balansga qo'shib qo'yadi
-         * Agar income bo'lsa, unda balansga qo'shib qo'yadi (0) + 10 = 10
-         * Agar income bo'lsa, unda real balansga qo'shib qo'yadi (0) + 10 = 10
-         *   Birinchi balansdan olib tashlaydi 10 - (0) = 10
-
-         * Agar exponse bo'lsa, unda balansda: (10) - 10 = 0
-         * Agar exponse bo'lsa, unda real balansda: (10) - 10 = 0
-         * 
-         * Agar exponse bo'lsa, unda balansda: (0) - 10 = 10
-         * Agar exponse bo'lsa, unda real balansda: (0) - 10 = -10
-         * 
-         * Agar income bo'lsa, unda balansda: (10) + 10 = 20
-         * Agar income bo'lsa, unda real balansda: (-10) + 10 = 0
-         *      Keyin balansdan: (20) - 10 = 10
-         */
         
 
         $id = Auth::user()->id;
