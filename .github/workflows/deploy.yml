@@ -36,7 +36,9 @@ jobs:
             docker compose exec -T finance-log-app php artisan route:cache
             docker compose exec -T finance-log-app php artisan view:cache
             
-
+            # Очистка кеша
+            docker compose exec -T finance-log-app php artisan optimize:clear
+            
             echo "🚀 Deployment complete"
           EOF
 

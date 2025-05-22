@@ -62,6 +62,8 @@ class TransactionSummaryService //Bu sinf userning umumiy qilgan xarajatlarini o
             ->whereBetween('date', [$startOfMonth, $endOfMonth])
             ->first();
 
+        $test = "test";
+
         return $result;
     }
 }
