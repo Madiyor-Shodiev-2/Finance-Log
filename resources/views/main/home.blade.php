@@ -66,7 +66,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm font-medium text-gray-500">Real balance</p>
-                        <p class="mt-1 text-2xl font-semibold text-gray-900">${{ auth()->user()->balance }}</p>
+                        <p class="mt-1 text-2xl font-semibold text-gray-900">${{ auth()->user()->real_balance }}</p>
                     </div>
                     <div class="bg-secondary-100 p-3 rounded-lg">
                         <span class="material-icons text-secondary-600">savings</span>

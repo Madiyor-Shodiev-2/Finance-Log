@@ -31,10 +31,11 @@ jobs:
             docker compose exec -T finance-log-app composer install --no-dev --optimize-autoloader
 
             # Выполняем artisan-команды внутри контейнера Laravel
-            docker compose exec -T finance-log-app php artisan migrate --force
+            docker compose exec -T finance-log-app php artisan migrate --seed --force
             docker compose exec -T finance-log-app php artisan config:cache
             docker compose exec -T finance-log-app php artisan route:cache
             docker compose exec -T finance-log-app php artisan view:cache
+            
 
             echo "🚀 Deployment complete"
           EOF
