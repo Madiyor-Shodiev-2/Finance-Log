@@ -24,7 +24,8 @@
             @endif
 
 
-
+            <h1>User balance: {{ auth()->user()->balance }}</h1>
+            <h1>User Real balance: {{ auth()->user()->real_balance }}</h1>
             <h1 class="text-2xl font-bold mb-4 text-center">Add Transaction</h1>
             <form action="{{ route('transactions.store') }}" method="POST">
                 @csrf
@@ -62,6 +63,7 @@
                     </div>
 
                     <div>
+                        <!-- Shu yerdan malumotlar ketadi -->
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </div>
@@ -69,27 +71,80 @@
         </div>
     </div>
 
-    <div class=" flex flex-col items-center justify-center p-6">
-        <div class="row">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Дневной расход</h5>
-                    <p class="card-text">Доход: {{ $daily->kirim }}</p>
-                    <p class="card-text">Расход: {{ $daily->chiqim }}</p>
+    <div class="flex flex-col items-center justify-center bg-gray-50 ">
+        <div class="flex flex-col md:flex-row gap-6 w-full max-w-6xl justify-center">
+            <!-- Daily Card -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 w-full max-w-xs transition-all hover:shadow-md">
+                <div class="p-5">
+                    <div class="flex items-center mb-3">
+                        <div class="bg-blue-100 p-2 rounded-lg mr-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-medium text-gray-800">Дневной расход</h3>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Доход:</span>
+                            <span class="font-medium text-green-600">{{ $daily->kirim }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Расход:</span>
+                            <span class="font-medium text-red-600">{{ $daily->chiqim }}</span>
+                        </div>
+                        <a href="{{ route('transactions.daily') }}" class="btn btn-info" style="width: 14rem;">show</a>
+                    </div>
                 </div>
             </div>
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Расходы на неделю</h5>
-                    <p class="card-text">Доход: {{ $weekly->kirim }}</p>
-                    <p class="card-text">Расход: {{ $weekly->chiqim }}</p>
+
+            <!-- Weekly Card -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 w-full max-w-xs transition-all hover:shadow-md">
+                <div class="p-5">
+                    <div class="flex items-center mb-3">
+                        <div class="bg-purple-100 p-2 rounded-lg mr-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-medium text-gray-800">Расходы на неделю</h3>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Доход:</span>
+                            <span class="font-medium text-green-600">{{ $weekly->kirim }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Расход:</span>
+                            <span class="font-medium text-red-600">{{ $weekly->chiqim }}</span>
+                        </div>
+                        <a href="{{ route('transactions.weekly') }}" class="btn btn-info" style="width: 14rem;">show</a>
+                    </div>
                 </div>
             </div>
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Расходы на год</h5>
-                    <p class="card-text">Доход: {{ $monthly->kirim }}</p>
-                    <p class="card-text">Расход: {{ $monthly->chiqim }}</p>
+
+            <!-- Monthly Card -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 w-full max-w-xs transition-all hover:shadow-md">
+                <div class="p-5">
+                    <div class="flex items-center mb-3">
+                        <div class="bg-amber-100 p-2 rounded-lg mr-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-medium text-gray-800">Расходы на месяц</h3>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Доход:</span>
+                            <span class="font-medium text-green-600">{{ $monthly->kirim }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Расход:</span>
+                            <span class="font-medium text-red-600">{{ $monthly->chiqim }}</span>
+                        </div>
+                        <a href="{{ route('transactions.monthly') }}" class="btn btn-info" style="width: 14rem;">show</a>
+                    </div>
                 </div>
             </div>
         </div>

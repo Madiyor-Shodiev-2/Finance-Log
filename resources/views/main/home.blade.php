@@ -1,8 +1,5 @@
 <x-app-layout>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
     <script>
         tailwind.config = {
             theme: {

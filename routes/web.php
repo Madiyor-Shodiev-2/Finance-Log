@@ -17,9 +17,13 @@ Route::get('/finance-log/dashboard', [HomeController::class, 'index'])->name('ho
 Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
 //Bu router, saytga yangi tranzaksiya qo'shish uchun yaratilgan
 Route::post('/transactions', [TransactionController::class, 'store'])->name('transactions.store');
-//
-Route::get('/transactions/show', [TransactionController::class, 'show'])
-->name('transactions.show');
+//Bu routerlar, saytda malumot korish uchun yaratilgan
+Route::get('/transactions/daily', [TransactionController::class, 'daily'])
+->name('transactions.daily');
+Route::get('/transactions/weekly', [TransactionController::class, 'weekly'])
+->name('transactions.weekly');
+Route::get('/transactions/monthly', [TransactionController::class, 'monthly'])
+->name('transactions.monthly');
 
 Route::middleware('auth')->group(function () {
     //Bu router, saytdagi foydalanuvchilarni profilini o'zgartirish saxifasiga

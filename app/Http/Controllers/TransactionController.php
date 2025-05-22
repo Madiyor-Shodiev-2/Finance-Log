@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTransactionRequest;
 use App\Service\TransactionSummaryService;
+use App\Service\TransactionSummaryAll;
+use App\Actions\UserBalanseAction;
 use App\Http\Requests\UpdateTransactionRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transaction;
@@ -47,6 +49,37 @@ class TransactionController extends Controller
             return redirect()->back()->withErrors(['auth' => 'Пожалуйста, зарегистрируйтесь или войдите в систему, чтобы добавить транзакцию.']);
         }
 
+        //Shu yerdan balans bilan ishlash kerak
+
+        /* Agarda Expense bo'lsa,  unda balansdan olib tashlaydi va real blansga qo'shib qo'yadi
+         * Agar balans yetarli bo'lmasa, tranzaksiyani balansiga haqiqiy summa qoshib qoyadi (20-30=0)
+         * balance hech qachon minus son olmaydi
+         * va qolgan summani real balancga qo'shib qo'yadi (20-30=-10) -10 ni real balansga qo'shib qo'yadi
+         * Agar balance 0 dan kichik bo'lsa, unda real balansga qo'shib qo'yadi
+         * 
+         * Agar balans yetarli bo'lsa, unda balansdan olib tashlaydi (10-10 = 0)
+         *  Agar qarz bo'lsa, va qarz kategoriyaga to'lov ketmagan bo'lsa, unda balansdan ayrib tashaydi (10-10=0) 
+         *  real balansdan esa (0-10=-10) (-10-10=-20)
+         * */
+
+
+        /** Agarda income bo'lsa,  balansga qo'shib qo'yadi
+         * Agar income bo'lsa, unda balansga qo'shib qo'yadi (0) + 10 = 10
+         * Agar income bo'lsa, unda real balansga qo'shib qo'yadi (0) + 10 = 10
+         *   Birinchi balansdan olib tashlaydi 10 - (0) = 10
+
+         * Agar exponse bo'lsa, unda balansda: (10) - 10 = 0
+         * Agar exponse bo'lsa, unda real balansda: (10) - 10 = 0
+         * 
+         * Agar exponse bo'lsa, unda balansda: (0) - 10 = 10
+         * Agar exponse bo'lsa, unda real balansda: (0) - 10 = -10
+         * 
+         * Agar income bo'lsa, unda balansda: (10) + 10 = 20
+         * Agar income bo'lsa, unda real balansda: (-10) + 10 = 0
+         *      Keyin balansdan: (20) - 10 = 10
+         */
+        
+
         $id = Auth::user()->id;
         
         $data = $request->validate([
@@ -55,15 +88,53 @@ class TransactionController extends Controller
             'category_id' => 'required|integer|exists:categories,id',
         ]);
 
-        Transaction::create([
+        $transaction =Transaction::create([
             'amount' => $data['amount'],
             'category_id' => $data['category_id'],
             'type' => $data['type'],
             'user_id' => $id,
             'date' => $data['date'] ?? now(),
         ]);
-
+        
+        UserBalanseAction::execute(Auth::user(), $transaction);
 
         return redirect()->back();
+    }
+
+    public function daily()
+    {
+        $id = Auth::user()->id; //fix it
+        $daily = TransactionSummaryAll::getDaily($id);
+        $dailyBalance = TransactionSummaryService::getDaily($id);
+
+
+        return view('main.transactions.daily', [
+            'daily' => $daily,
+            'dailyBalance' => $dailyBalance
+        ]);
+    }
+    public function weekly()
+    {
+        $id = Auth::user()->id; //fix it   
+        
+        $weekly = TransactionSummaryAll::getWeekly($id);
+        $week = TransactionSummaryService::getWeekly($id);
+    
+        return view('main.transactions.week', [
+            'weekly' => $weekly,
+            'weeklyBalance' => $week
+        ]);
+    }
+    public function monthly()
+    {   
+        $id = Auth::user()->id; //fix it
+
+        $monthly = TransactionSummaryAll::getMonthly($id);
+        $month = TransactionSummaryService::getMonthly($id);
+
+        return view('main.transactions.monthly', [
+            'monthly' => $monthly,
+            'monthlyBalance' => $month
+        ]);
     }
 }

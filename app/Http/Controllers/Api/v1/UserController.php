@@ -30,11 +30,15 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'balance' => ['required', 'integer'],
+            'real_balance' => ['required', 'integer']
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'balance' => $request->balance,
+            'real_balance' => $request->real_balance,
             'password' => Hash::make($request->password),
         ]);
 
