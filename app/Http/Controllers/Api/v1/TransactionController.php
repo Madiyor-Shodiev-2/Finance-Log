@@ -11,24 +11,26 @@ class TransactionController extends Controller
 {
     public function index()
     {
-        $transactions = Transaction::with('category')->with('user')->latest()->get();
         return response()->json([
-            'data' => $transactions
+            'data' => Transaction::with('category')->with('user')->latest()->get()
         ]);
     }
 
     public function store(Request $request)
     {
         $id = Auth::user()->id;
+
         $validated = $request->validate([
             'amount' => 'required|numeric|min:0.01',
+            'type' => 'required',
             'category_id' => 'required|exists:categories,id',
         ]);
 
         $transaction = Transaction::create([
             'amount' => $validated['amount'],
             'category_id' => $validated['category_id'],
-            'user_id' => 1,
+            'type' => $validated['type'],
+            'user_id' => $id,
             'date' => now()
         ]);
 

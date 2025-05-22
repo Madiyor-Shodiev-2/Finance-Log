@@ -1,74 +1,212 @@
 <x-guest-layout class="cyber-theme">
-    <link href="{{ asset('css/cyber.css') }}" rel="stylesheet"> <!-- copy css styles -->
 
-    <x-auth-session-status class="status-message" :status="session('status')" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-fast': 'float 4s ease-in-out infinite',
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-20px)'
+                            },
+                        },
+                        fadeIn: {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(10px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .auth-container {
+            background-image: radial-gradient(circle at 25% 50%, rgba(14, 165, 233, 0.1) 0%, rgba(255, 255, 255, 1) 70%);
+        }
 
-    <form method="POST" action="{{ route('login') }}" class="cyber-form">
-        @csrf
+        .input-field:focus-within {
+            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.2);
+            border-color: #0ea5e9;
+        }
+    </style>
 
-        <div class="cyber-grid">
-            <div class="input-group">
-                <div class="input-wrapper">
-                    <x-text-input id="email"
-                        class="cyber-input"
-                        type="email"
-                        name="email"
-                        :value="old('email')"
-                        required
-                        autofocus
-                        autocomplete="username"
-                        placeholder="email" />
-                </div>
-                <x-input-error :messages="$errors->get('email')" class="error-text" />
-            </div>
-
-            <div class="input-group">
-                <div class="input-wrapper">
-                    <x-text-input id="password"
-                        class="cyber-input"
-                        type="password"
-                        name="password"
-                        required
-                        autocomplete="current-password"
-                        placeholder="your password ..." />
-
-                    <button type="button" class="password-toggle" aria-label="Show password">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="#5ac8fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="#5ac8fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
-                </div>
-                <x-input-error :messages="$errors->get('password')" class="error-text" />
-
-                <x-primary-button>
-                    <span class="button-text bg-blue-100">{{ __('Sign In') }}</span>
-                </x-primary-button>
-            </div>
-
-
-            <div class="row text-center">
-                <div class="col-6">
-                    @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                        {{ __('forgot password?') }}
-                    </a>
-                    @endif
-                </div>
-                <div class="col-6">
-                    <a class="
-                    underline text-sm text-gray-600 dark:text-gray-400 
-                    hover:text-gray-900 dark:hover:text-gray-100 rounded-md 
-                    focus:outline-none focus:ring-2 focus:ring-offset-2 
-                    focus:ring-indigo-500 dark:focus:ring-offset-gray-800" 
-                    href="{{ route('register') }}">
-
-                        {{ __('dont have account?') }}
-                        
-                    </a>
-                </div>
-            </div>
-
+    <body class="bg-gray-50 font-sans antialiased text-gray-900 min-h-screen flex items-center justify-center p-4">
+        <!-- Animated Background Elements -->
+        <div class="fixed inset-0 overflow-hidden -z-10">
+            <div class="absolute top-1/4 left-1/4 w-16 h-16 bg-primary-100 rounded-full opacity-50 animate-float"></div>
+            <div class="absolute top-1/3 right-1/4 w-24 h-24 bg-primary-200 rounded-full opacity-30 animate-float-fast animation-delay-1000"></div>
+            <div class="absolute bottom-1/4 left-1/3 w-20 h-20 bg-primary-100 rounded-full opacity-40 animate-float animation-delay-1500"></div>
         </div>
-    </form>
+
+        <!-- Main Content Container -->
+        <div class="w-full max-w-md animate-fade-in" style="opacity: 0; animation-delay: 300ms;">
+            <div class="auth-container bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+                <!-- Logo Header -->
+                <div class="bg-gradient-to-r from-primary-500 to-primary-600 p-6 text-center">
+                    <div class="flex items-center justify-center space-x-2 mb-2">
+                        <span class="material-icons text-white text-4xl">account_balance</span>
+                        <h1 class="text-2xl font-bold text-white">FinanceLog</h1>
+                    </div>
+                    <p class="text-primary-100">Track your money with clarity</p>
+                </div>
+
+                <!-- Login Form -->
+                <div class="p-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-1">Welcome back</h2>
+                    <p class="text-gray-500 mb-6">Sign in to your account</p>
+
+                    <form class="space-y-5">
+                        <!-- Email Field -->
+                        <div class="space-y-1">
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                            <div class="input-field relative flex items-center border border-gray-300 rounded-lg transition-all duration-200">
+                                <span class="material-icons text-gray-400 absolute left-3">email</span>
+                                <input
+                                    id="email"
+                                    type="email"
+                                    required
+                                    class="w-full pl-10 pr-4 py-3 bg-transparent focus:outline-none text-gray-700 rounded-lg"
+                                    placeholder="your@email.com">
+                            </div>
+                        </div>
+
+                        <!-- Password Field -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between items-center">
+                                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                                <a href="#" class="text-sm text-primary-600 hover:text-primary-700">Forgot?</a>
+                            </div>
+                            <div class="input-field relative flex items-center border border-gray-300 rounded-lg transition-all duration-200">
+                                <span class="material-icons text-gray-400 absolute left-3">lock</span>
+                                <input
+                                    id="password"
+                                    type="password"
+                                    required
+                                    class="w-full pl-10 pr-4 py-3 bg-transparent focus:outline-none text-gray-700 rounded-lg"
+                                    placeholder="••••••••">
+                                <button type="button" class="absolute right-3 text-gray-400 hover:text-gray-600">
+                                    <span class="material-icons">visibility_off</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Remember Me -->
+                        <div class="flex items-center">
+                            <input id="remember" type="checkbox" class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded">
+                            <label for="remember" class="ml-2 block text-sm text-gray-700">Remember me</label>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button
+                            type="submit"
+                            class="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center">
+                            <span class="material-icons mr-2">login</span>
+                            Sign In
+                        </button>
+                    </form>
+
+                    <!-- Social Login -->
+                    <div class="mt-6">
+                        <div class="relative">
+                            <div class="absolute inset-0 flex items-center">
+                                <div class="w-full border-t border-gray-300"></div>
+                            </div>
+                            <div class="relative flex justify-center text-sm">
+                                <span class="px-2 bg-white text-gray-500">Or continue with</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 grid grid-cols-2 gap-3">
+                            <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.477 0 10c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.933.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C17.14 18.163 20 14.418 20 10c0-5.523-4.477-10-10-10z" clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                            <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.477 0 10c0 5.523 4.477 10 10 10 5.523 0 10-4.477 10-10 0-5.523-4.477-10-10-10zm4.293 13.707a1 1 0 01-1.414 1.414L10 11.414l-2.879 2.879a1 1 0 01-1.414-1.414L8.586 10 5.707 7.121a1 1 0 011.414-1.414L10 8.586l2.879-2.879a1 1 0 011.414 1.414L11.414 10l2.879 2.879z" clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Sign Up Link -->
+                    <div class="mt-6 text-center">
+                        <p class="text-sm text-gray-600">
+                            Don't have an account?
+                            <a href="/register" class="font-medium text-primary-600 hover:text-primary-700">Sign up</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Initialize animations
+            document.addEventListener('DOMContentLoaded', () => {
+                // Input focus effects
+                const inputs = document.querySelectorAll('input');
+                inputs.forEach(input => {
+                    input.addEventListener('focus', () => {
+                        input.parentElement.classList.add('ring-2', 'ring-primary-200');
+                    });
+                    input.addEventListener('blur', () => {
+                        input.parentElement.classList.remove('ring-2', 'ring-primary-200');
+                    });
+                });
+
+                // Password visibility toggle
+                const passwordToggle = document.querySelector('button[type="button"]');
+                if (passwordToggle) {
+                    passwordToggle.addEventListener('click', () => {
+                        const passwordInput = document.getElementById('password');
+                        const icon = passwordToggle.querySelector('.material-icons');
+                        if (passwordInput.type === 'password') {
+                            passwordInput.type = 'text';
+                            icon.textContent = 'visibility';
+                        } else {
+                            passwordInput.type = 'password';
+                            icon.textContent = 'visibility_off';
+                        }
+                    });
+                }
+            });
+        </script>
+    </body>
+
 </x-guest-layout>
