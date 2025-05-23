@@ -21,7 +21,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i key.pem root@185.191.141.82 << 'EOF'
             echo "✅ Connected to server"
 
-            cd /var/www/FinanceLog   # Путь до проекта
+            cd /var/www/Finance-Log   # Путь до проекта
             git pull origin main     # Обновляем код
 
             docker compose build     # Собираем контейнеры
@@ -31,11 +31,14 @@ jobs:
             docker compose exec -T finance-log-app composer install --no-dev --optimize-autoloader
 
             # Выполняем artisan-команды внутри контейнера Laravel
-            docker compose exec -T finance-log-app php artisan migrate --force
+            docker compose exec -T finance-log-app php artisan migrate --seed --force
             docker compose exec -T finance-log-app php artisan config:cache
             docker compose exec -T finance-log-app php artisan route:cache
             docker compose exec -T finance-log-app php artisan view:cache
-
+            
+            # Очистка кеша
+            docker compose exec -T finance-log-app php artisan optimize:clear
+            
             echo "🚀 Deployment complete"
           EOF
 

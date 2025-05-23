@@ -16,8 +16,15 @@ class Transaction extends Model
         [
             "amount",
             "date",
+            'type',
             "category_id",
+            "user_id"
         ];
+
+    protected $casts = [
+        'date' => 'datetime',
+        'amount' => 'float'
+    ];
 
 
     public function category()

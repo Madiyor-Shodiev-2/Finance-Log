@@ -20,9 +20,11 @@ class TransactionFactory extends Factory
     {
 
         return [
-            'amount' => $this->faker->randomFloat(2, 1, 1000),
+            'amount' => $this->faker->randomFloat(2, 1, 10),
             'date' => $this->faker->date(),
-            'category_id' => Category::factory(), 
+            'type' => $this->faker->boolean(),
+            'category_id' => rand(1, 10),
+            'user_id' => 1
         ];
     }
 }

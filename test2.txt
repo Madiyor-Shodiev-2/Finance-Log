@@ -1,0 +1,13 @@
+Font: layout, beatiful layout for login page
+MyPorjectName: FinanceLog
+I want: HTML, Tailwind, blade, frontend, just layout
+About project: WhereMoneyGoes is a minimalist web application for tracking personal income and expenses. It helps users monitor their cash flow, analyze daily, monthly, and yearly spending, and categorize transactions (e.g., food, transportation, salary, etc.). Designed as an MVP, the app focuses on simplicity, clarity, and essential financial insights.
+Styles:
+
+Примените дизайн-принципы Material Design / Apple Human Interface / Fluent Design к этому сайту. Логику и структуру не изменяйте.
+
+Улучшите UX-дизайн на основе принципов Jakob Nielsen (ясность, обратная связь, минимальная когнитивная нагрузка). Только внешний вид.
+
+Улучшите читаемость, контраст и взаимодействие элементов, используя дизайнерские best practices. Логика остается неизменной.
+
+Сделай интерфейс визуально привлекательным и современным, основываясь на принципах иерархии, выравнивания и повторения
