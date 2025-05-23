@@ -1,7 +1,4 @@
 <x-app-layout>
-
-
-
     <!-- Hero Section -->
     <div class="min-h-screen flex flex-col">
             <!-- Main Content -->
@@ -123,9 +120,5 @@
                     </div>
                 </section>
             </main>
-
-
     </div>
-
-
 </x-app-layout>

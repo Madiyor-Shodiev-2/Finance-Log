@@ -19,25 +19,16 @@ class TransactionController extends Controller
     public function index()
     {
 
-        if (Auth::check()){
-            $id = Auth::user()->id; //fix it
-        }
-        else{
-            $id = 9999;
-
-        }
-        
-        $daily = TransactionSummaryService::getDaily($id);
-        $month = TransactionSummaryService::getMonthly($id);
-        $week = TransactionSummaryService::getWeekly($id);
+        $id = Auth::user()->id;
+        $transactions = TransactionSummaryService::getAll($id);
 
         $categories = Category::all();
 
         return view('main.transactions.index', [
             'categories' => $categories,
-            'daily' => $daily,
-            'monthly' => $month,
-            'weekly' => $week
+            'daily' => $transactions['daily'],
+            'monthly' => $transactions['monthly'],
+            'weekly' => $transactions['weekly']
         ]);
     }
     /**
@@ -67,17 +58,17 @@ class TransactionController extends Controller
         $id = Auth::user()->id;
         
         $data = $request->validate([
-            'amount' => 'required|integer',
-            'type' => 'required',
+            'amount'      => 'required|integer',
+            'type'        => 'required',
             'category_id' => 'required|integer|exists:categories,id',
         ]);
 
-        $transaction =Transaction::create([
-            'amount' => $data['amount'],
+        $transaction = Transaction::create([
+            'amount'      => $data['amount'],
             'category_id' => $data['category_id'],
-            'type' => $data['type'],
-            'user_id' => $id,
-            'date' => $data['date'] ?? now(),
+            'type'        => $data['type'],
+            'user_id'     => $id,
+            'date'        => $data['date'] ?? now(),
         ]);
         
         UserBalanseAction::execute(Auth::user(), $transaction);
@@ -91,7 +82,6 @@ class TransactionController extends Controller
         $daily = TransactionSummaryAll::getDaily($id);
         $dailyBalance = TransactionSummaryService::getDaily($id);
 
-
         return view('main.transactions.daily', [
             'daily' => $daily,
             'dailyBalance' => $dailyBalance
@@ -99,7 +89,7 @@ class TransactionController extends Controller
     }
     public function weekly()
     {
-        $id = Auth::user()->id; //fix it   
+        $id = Auth::user()->id; //fix me   
         
         $weekly = TransactionSummaryAll::getWeekly($id);
         $week = TransactionSummaryService::getWeekly($id);

@@ -1,9 +1,6 @@
 <?php
 
-//Bu fayl, saytning barcha routerlarini o'z ichiga oladi
-//Bu yerda kerakli kutubxonalar chaqiriladi
-
-use App\Http\Controllers\HomeController; //Bu kutubxona saytning bosh qismi uchun
+use App\Http\Controllers\HomeController; 
 use App\Http\Controllers\ProfileController; //Bu kutubxona foydalanuvchilarni profili uchun
 use App\Http\Controllers\TransactionController; //Bu kutubxona tranzaksiyalar uchun
 use Illuminate\Support\Facades\Route; //Bu kutubxona router fasadini chaqirish uchun
@@ -27,6 +24,8 @@ Route::middleware(AuthRedirect::class)->group(function () {
     Route::get('/transactions/monthly', [TransactionController::class, 'monthly'])
     ->name('transactions.monthly');
 });
+
+//test comment
 
 Route::middleware('auth')->group(function () {
     //Bu router, saytdagi foydalanuvchilarni profilini o'zgartirish saxifasiga
