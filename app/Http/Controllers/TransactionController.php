@@ -37,27 +37,28 @@ class TransactionController extends Controller
      */
     public function store(StoreTransactionRequest $request)
     {
-        BalanseAction::absIfNegative($request->amount);
-
+        
         if(!Auth::check()){
             return redirect()->back()->withErrors(['auth' => 'Пожалуйста, зарегистрируйтесь или войдите в систему, чтобы добавить транзакцию.']);
         }
-
+        
         $id = Auth::user()->id;
-
+        
         $data = $request->all();
+        
+        $data['amount'] = BalanseAction::absIfNegative($request->amount);
 
         $transaction = Transaction::create([
+            'user_id'     => $id,
             'amount'      => $data['amount'],
             'category_id' => $data['category_id'],
             'type'        => $data['type'],
-            'user_id'     => $id,
             'date'        => $data['date'] ?? now(),
         ]);
-        
+
         UserBalanseAction::execute(Auth::user(), $transaction);
 
-        return redirect()->back();
+        return redirect()->route('home');
     }
 
     public function daily()

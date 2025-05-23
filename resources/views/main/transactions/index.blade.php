@@ -23,9 +23,6 @@
             </div>
             @endif
 
-
-            <h1>User balance: {{ auth()->user()->balance }}</h1>
-            <h1>User Real balance: {{ auth()->user()->real_balance }}</h1>
             <h1 class="text-2xl font-bold mb-4 text-center">Add Transaction</h1>
             <form action="{{ route('transactions.store') }}" method="POST">
                 @csrf
