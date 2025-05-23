@@ -56,6 +56,8 @@ class TransactionController extends Controller
             'date'        => $data['date'] ?? now(),
         ]);
 
+        $test = "test";
+
         UserBalanseAction::execute(Auth::user(), $transaction);
 
         return redirect()->route('home');
