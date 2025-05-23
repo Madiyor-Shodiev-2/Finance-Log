@@ -12,7 +12,7 @@ class TransactionController extends Controller
     public function index()
     {
         return response()->json([
-            'data' => Transaction::with('category')->with('user')->latest()->get()
+            'data' => Transaction::all()
         ]);
     }
 

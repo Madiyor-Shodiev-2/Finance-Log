@@ -56,19 +56,15 @@ class TransactionController extends Controller
         
 
         $id = Auth::user()->id;
-        
-        $data = $request->validate([
-            'amount'      => 'required|integer',
-            'type'        => 'required',
-            'category_id' => 'required|integer|exists:categories,id',
-        ]);
+
+        $data = $request->all();
 
         $transaction = Transaction::create([
-            'amount'      => $data['amount'],
-            'category_id' => $data['category_id'],
-            'type'        => $data['type'],
             'user_id'     => $id,
+            'amount'      => $data['amount'],
+            'description' => $data['description'],
             'date'        => $data['date'] ?? now(),
+            'type'        => $data['type'],
         ]);
         
         UserBalanseAction::execute(Auth::user(), $transaction);

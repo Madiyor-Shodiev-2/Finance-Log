@@ -14,24 +14,30 @@ class HomeController extends Controller
         //O'ylil transaktsiyalarni olish uchun TransactionService dan foydalanamiz
         $monthlyTransactions = TransactionSummaryService::getMonthly(Auth::user()->id);
 
-        //Faqat ozgacha kategoriylarni transaksiyatan sug'urib olish uchun
-        $categories = Transaction::where('user_id', Auth::user()->id)
-            ->with('category')
-            ->get()
-            ->pluck('category')
-            ->unique('id')
+        // //Faqat ozgacha kategoriylarni transaksiyatan sug'urib olish uchun
+        // $categories = Transaction::where('user_id', Auth::user()->id)
+        //     ->with('category')
+        //     ->get()
+        //     ->pluck('category')
+        //     ->unique('id')
+        //     ->values();
+
+        $descriptions = Transaction::where('user_id', Auth::user()->id)
+            ->pluck('description')
             ->values();
+
+        dd($descriptions);
 
         //Kategoriyalarni yuborvolishy uchun Foydanlanuvchini tranzaksiyasi dan foydalanamiz
         $transactions = Transaction::where('user_id', Auth::user()->id)
-            ->with('category')
             ->orderBy('date', 'desc')
-            ->get();
+            ->pluck('description')
+            ->values();
 
         //Bu yerda sizning saytingizning dashboard qismini ko'rsatiladi
         return view('main.home', [
             'monthlyTransactions' => $monthlyTransactions,
-            'categories' => $categories,
+            'descriptions' => $descriptions,
             'transactions' => $transactions,
         ]);
     }

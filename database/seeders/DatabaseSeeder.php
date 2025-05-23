@@ -21,18 +21,5 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
             'balance' => 127.78
         ]);
-
-        // $this->call([
-        //     CategorySeeder::class,
-        //     TransactionSeeder::class,
-        // ]);
-
-        $label = ['Autobus', 'products', 'learning'];
-
-        foreach($label as $add){
-            Category::create([
-                'label' => $add
-            ]);
-        }
     }
 }
