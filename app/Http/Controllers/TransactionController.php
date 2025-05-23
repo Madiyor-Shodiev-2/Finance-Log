@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\BalanseAction;
 use App\Http\Requests\StoreTransactionRequest;
 use App\Service\TransactionSummaryService;
 use App\Service\TransactionSummaryAll;
@@ -36,32 +37,15 @@ class TransactionController extends Controller
      */
     public function store(StoreTransactionRequest $request)
     {
+        BalanseAction::absIfNegative($request->amount);
+
         if(!Auth::check()){
             return redirect()->back()->withErrors(['auth' => 'Пожалуйста, зарегистрируйтесь или войдите в систему, чтобы добавить транзакцию.']);
         }
 
-        //Shu yerdan balans bilan ishlash kerak
-
-        /* Agarda Expense bo'lsa,  unda balansdan olib tashlaydi va real blansga qo'shib qo'yadi
-         * Agar balans yetarli bo'lmasa, tranzaksiyani balansiga haqiqiy summa qoshib qoyadi (20-30=0)
-         * balance hech qachon minus son olmaydi
-         * va qolgan summani real balancga qo'shib qo'yadi (20-30=-10) -10 ni real balansga qo'shib qo'yadi
-         * Agar balance 0 dan kichik bo'lsa, unda real balansga qo'shib qo'yadi
-         * 
-         * Agar balans yetarli bo'lsa, unda balansdan olib tashlaydi (10-10 = 0)
-         *  Agar qarz bo'lsa, va qarz kategoriyaga to'lov ketmagan bo'lsa, unda balansdan ayrib tashaydi (10-10=0) 
-         *  real balansdan esa (0-10=-10) (-10-10=-20)
-         * */
-
-        
-
         $id = Auth::user()->id;
-        
-        $data = $request->validate([
-            'amount'      => 'required|integer',
-            'type'        => 'required',
-            'category_id' => 'required|integer|exists:categories,id',
-        ]);
+
+        $data = $request->all();
 
         $transaction = Transaction::create([
             'amount'      => $data['amount'],
