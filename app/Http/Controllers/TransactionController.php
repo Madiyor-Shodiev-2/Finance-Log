@@ -27,9 +27,9 @@ class TransactionController extends Controller
 
         return view('main.transactions.index', [
             'categories' => $categories,
-            'daily' => $transactions['daily'],
-            'monthly' => $transactions['monthly'],
-            'weekly' => $transactions['weekly']
+            'daily'      => $transactions['daily'],
+            'monthly'    => $transactions['monthly'],
+            'weekly'     => $transactions['weekly']
         ]);
     }
     /**
@@ -56,7 +56,7 @@ class TransactionController extends Controller
             'date'        => $data['date'] ?? now(),
         ]);
 
-        $test = "test";
+        $test = "teasdasdst";
 
         UserBalanseAction::execute(Auth::user(), $transaction);
 
@@ -70,7 +70,7 @@ class TransactionController extends Controller
         $dailyBalance = TransactionSummaryService::getDaily($id);
 
         return view('main.transactions.daily', [
-            'daily' => $daily,
+            'daily'        => $daily,
             'dailyBalance' => $dailyBalance
         ]);
     }
@@ -82,19 +82,19 @@ class TransactionController extends Controller
         $week = TransactionSummaryService::getWeekly($id);
     
         return view('main.transactions.week', [
-            'weekly' => $weekly,
+            'weekly'        => $weekly,
             'weeklyBalance' => $week
         ]);
     }
     public function monthly()
     {   
-        $id = Auth::user()->id; //fix it
+        $id = Auth::user()->id; 
 
         $monthly = TransactionSummaryAll::getMonthly($id);
         $month = TransactionSummaryService::getMonthly($id);
 
         return view('main.transactions.monthly', [
-            'monthly' => $monthly,
+            'monthly'        => $monthly,
             'monthlyBalance' => $month
         ]);
     }
