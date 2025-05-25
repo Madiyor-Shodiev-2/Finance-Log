@@ -7,36 +7,36 @@ use Carbon\Carbon;
 
 class TransactionSummaryAll 
 {
-    static public function getDaily($id)
+    static public function getDaily($userId)
     {
-        $transactions = Transaction::where('user_id', $id) 
-            ->whereDate('date', '=', today()) 
-            ->orderBy('date', 'desc') 
-            ->get(); 
+        $today = Carbon::now()->toDateString();
 
+        $transactions = Transaction::byDate($today)
+            ->sortByDate('desc')
+            ->get();
+        
         return $transactions; 
     }
 
     static public function getWeekly($userId)
     {
-        $startOfWeek = Carbon::now()->startOfWeek();  
-        $endOfWeek   = Carbon::now()->endOfWeek();     
-        
-        $transactions = Transaction::where('user_id', $userId) 
-            ->whereBetween('date', [$startOfWeek, $endOfWeek]) 
-            ->orderBy     ('date', 'desc') 
-            ->get         (); 
+        $startOfWeek = Carbon::now()->startOfWeek()->toDateString();
+        $endOfWeek = Carbon::now()->endOfWeek()->toDateString();
+
+        $transactions = Transaction::byBetween([$startOfWeek, $endOfWeek])
+            ->sortByDate('desc')
+            ->get();
         
         return $transactions; 
     }
 
     static public function getMonthly($userId) 
     {
-        $transactions = Transaction::where('user_id', $userId) 
-            ->whereMonth('date', Carbon::now()->month) 
-            ->whereYear ('date', Carbon::now()->year) 
-            ->orderBy   ('date', 'desc') 
-            ->get       (); 
+        $month = Carbon::now()->month;
+        $year = Carbon::now()->year;
+
+        $transactions = Transaction::byMonth([$month, $year])
+            ->sortByDate('desc')->get();
 
         return $transactions; 
     }
