@@ -37,11 +37,6 @@ class TransactionController extends Controller
      */
     public function store(StoreTransactionRequest $request)
     {
-        
-        if(!Auth::check()){
-            return redirect()->back()->withErrors(['auth' => 'Пожалуйста, зарегистрируйтесь или войдите в систему, чтобы добавить транзакцию.']);
-        }
-        
         $id = Auth::user()->id;
         
         $data = $request->all();
@@ -53,10 +48,8 @@ class TransactionController extends Controller
             'amount'      => $data['amount'],
             'category_id' => $data['category_id'],
             'type'        => $data['type'],
-            'date'        => $data['date'] ?? now(),
+            'date'        => now(),
         ]);
-
-        $test = "test";
 
         UserBalanseAction::execute(Auth::user(), $transaction);
 
@@ -65,7 +58,7 @@ class TransactionController extends Controller
 
     public function daily()
     {
-        $id = Auth::user()->id; //fix it
+        $id = Auth::user()->id; 
         $daily = TransactionSummaryAll::getDaily($id);
         $dailyBalance = TransactionSummaryService::getDaily($id);
 
