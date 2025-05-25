@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Service; 
+namespace App\Service;
 
+use App\Models\Transaction;
 use Illuminate\Support\Facades\DB; 
 use Carbon\Carbon; 
 
@@ -21,14 +22,10 @@ class TransactionSummaryService
     {
         $date = $date ? Carbon::parse($date)->toDateString() : date('Y-m-d'); 
 
-        $result = DB::table('transactions') 
-            ->selectRaw(" 
-                COALESCE(SUM(CASE WHEN type = false THEN amount ELSE 0 END), 0) AS chiqim,
-                COALESCE(SUM(CASE WHEN type = true THEN amount ELSE 0 END), 0) AS kirim
-            ") 
-            ->where('user_id', $userId) 
-            ->whereDate('date', $date) 
-            ->first(); 
+        $result = Transaction::query()
+                ->countByQuerys(Transaction::query())
+                ->byDate($date)
+                ->first(); 
 
         $result->date = $date;
 
@@ -41,13 +38,9 @@ class TransactionSummaryService
         $startOfWeek = $date->copy()->startOfWeek()->toDateString();
         $endOfWeek   = $date->copy()->endOfWeek()->toDateString();
         
-        $result = DB::table('transactions')
-            ->selectRaw("
-                COALESCE(SUM(CASE WHEN type = false THEN amount ELSE 0 END), 0) AS chiqim,
-                COALESCE(SUM(CASE WHEN type = true THEN amount ELSE 0 END), 0) AS kirim
-            ")
-            ->where('user_id', $userId)
-            ->whereBetween('date', [$startOfWeek, $endOfWeek])
+        $result = Transaction::query()
+            ->countByQuerys()
+            ->byBetween([$startOfWeek, $endOfWeek])
             ->first();
 
         $result->start_of_week = $startOfWeek;
@@ -62,13 +55,9 @@ class TransactionSummaryService
         $startOfMonth = $date->copy()->startOfMonth()->toDateString();
         $endOfMonth   = $date->copy()->endOfMonth()->toDateString();
 
-        $result = DB::table('transactions')
-            ->selectRaw("           
-                SUM(CASE WHEN type = false THEN amount ELSE 0 END) AS chiqim,
-                SUM(CASE WHEN type = true THEN amount ELSE 0 END) AS kirim
-            ")
-            ->where('user_id', $userId)
-            ->whereBetween('date', [$startOfMonth, $endOfMonth])
+        $result = Transaction::query()
+            ->countByQuerys()
+            ->byBetween([$startOfMonth, $endOfMonth])
             ->first();
 
         return $result;
