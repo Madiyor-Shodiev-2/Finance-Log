@@ -17,7 +17,9 @@ class AuthRedirect
     public function handle(Request $request, Closure $next): Response
     {
         if(!Auth::check()){
-            return redirect()->route('welcome');
+            return redirect()->route('welcome', [
+                'locale' => app()->getLocale(),
+            ]);
         }
 
         return $next($request);

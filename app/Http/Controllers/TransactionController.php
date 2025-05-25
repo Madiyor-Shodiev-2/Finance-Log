@@ -34,9 +34,7 @@ class TransactionController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StoreTransactionRequest $request)
-    {
-        $id = Auth::user()->id;
-        
+    {        
         $data = $request->all();
         
         $data['amount'] = BalanseAction::absIfNegative($request->amount);
@@ -51,7 +49,9 @@ class TransactionController extends Controller
 
         UserBalanseAction::execute(Auth::user(), $transaction);
 
-        return redirect()->route('home');
+        return redirect()->route('home', [
+            'locale' => session('locale'),
+        ]);
     }
     public function daily()
     {
