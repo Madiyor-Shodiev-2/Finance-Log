@@ -10,7 +10,6 @@
                     @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                     @endforeach
-                    <a href="{{ route('login') }}">Login</a>
                 </ul>
             </div>
             @elseif($errors->all())
@@ -24,7 +23,7 @@
             @endif
 
             <h1 class="text-2xl font-bold mb-4 text-center">Add Transaction</h1>
-            <form action="{{ route('transactions.store') }}" method="POST">
+            <form action="{{ route('transactions.store', ['locale' => session('locale')]) }}" method="POST">
                 @csrf
                 @method("POST")
                 <!-- Transaction Form -->
@@ -98,7 +97,7 @@
                             <span class="text-gray-600">Расход:</span>
                             <span class="font-medium text-red-600">{{ $daily->chiqim }}</span>
                         </div>
-                        <a href="{{ route('transactions.daily') }}" class="btn btn-info" style="width: 14rem;">show</a>
+                        <a href="{{ route('transactions.daily', ['locale' => session('locale')]) }}" class="btn btn-info" style="width: 14rem;">show</a>
                     </div>
                 </div>
             </div>
@@ -123,7 +122,7 @@
                             <span class="text-gray-600">Расход:</span>
                             <span class="font-medium text-red-600">{{ $weekly->chiqim }}</span>
                         </div>
-                        <a href="{{ route('transactions.weekly') }}" class="btn btn-info" style="width: 14rem;">show</a>
+                        <a href="{{ route('transactions.weekly', ['locale' => session('locale')] ) }}" class="btn btn-info" style="width: 14rem;">show</a>
                     </div>
                 </div>
             </div>
@@ -148,7 +147,7 @@
                             <span class="text-gray-600">Расход:</span>
                             <span class="font-medium text-red-600">{{ $monthly->chiqim }}</span>
                         </div>
-                        <a href="{{ route('transactions.monthly') }}" class="btn btn-info" style="width: 14rem;">show</a>
+                        <a href="{{ route('transactions.monthly', ['locale' => session('locale')]) }}" class="btn btn-info" style="width: 14rem;">show</a>
                     </div>
                 </div>
             </div>
