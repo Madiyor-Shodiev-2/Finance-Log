@@ -7,14 +7,22 @@
                 <span class="text-lg font-semibold">FinanceLog</span>
             </div>
             <div class="flex flex-wrap justify-center gap-6">
-                <a href="#" class="text-gray-600 hover:text-primary-600 transition-colors">Privacy</a>
-                <a href="#" class="text-gray-600 hover:text-primary-600 transition-colors">Terms</a>
-                <a href="#" class="text-gray-600 hover:text-primary-600 transition-colors">Contact</a>
-                <a href="#" class="text-gray-600 hover:text-primary-600 transition-colors">About</a>
+                <a href="#" class="text-gray-600 hover:text-primary-600 transition-colors">
+                    {{ __('footer.links.privacy') }}
+                </a>
+                <a href="#" class="text-gray-600 hover:text-primary-600 transition-colors">
+                    {{ __('footer.links.terms') }}
+                </a>
+                <a href="#" class="text-gray-600 hover:text-primary-600 transition-colors">
+                    {{ __('footer.links.contact') }}
+                </a>
+                <a href="#" class="text-gray-600 hover:text-primary-600 transition-colors">
+                    {{ __('footer.links.about') }}
+                </a>
             </div>
         </div>
         <div class="mt-8 text-center text-gray-500 text-sm">
-            © 2023 FinanceLog. All rights reserved.
+            © 2025 FinanceLog. {{ __('footer.prefix') }}
         </div>
     </div>
 </footer>
