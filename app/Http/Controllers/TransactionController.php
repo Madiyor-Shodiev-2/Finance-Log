@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\BalanseAction;
 use App\Http\Requests\StoreTransactionRequest;
 use App\Service\TransactionSummaryService;
 use App\Service\TransactionSummaryAll;
@@ -34,7 +35,11 @@ class TransactionController extends Controller
      */
     public function store(StoreTransactionRequest $request)
     {
+        $id = Auth::user()->id;
+        
         $data = $request->all();
+        
+        $data['amount'] = BalanseAction::absIfNegative($request->amount);
 
         $transaction = Transaction::create([
             'user_id'     => $this->userId,
@@ -43,7 +48,7 @@ class TransactionController extends Controller
             'date'        => now(),
             'type'        => $data['type'],
         ]);
-        
+
         UserBalanseAction::execute(Auth::user(), $transaction);
 
         return redirect()->route('home');
