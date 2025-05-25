@@ -14,23 +14,17 @@ class Transaction extends Model
 
     protected $fillable =
         [
+            "user_id",
             "amount",
-            "date",
+            "description",
             'type',
-            "category_id",
-            "user_id"
+            "date",
         ];
 
     protected $casts = [
         'date' => 'datetime',
         'amount' => 'float'
     ];
-
-
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
 
     public function user()
     {

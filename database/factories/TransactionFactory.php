@@ -23,7 +23,7 @@ class TransactionFactory extends Factory
             'amount' => $this->faker->randomFloat(2, 1, 10),
             'date' => $this->faker->date(),
             'type' => $this->faker->boolean(),
-            'category_id' => rand(1, 10),
+            'description' => $this->faker->sentence(),
             'user_id' => 1
         ];
     }

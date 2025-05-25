@@ -2,37 +2,35 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Models\Transaction;
-use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreTransactionRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Transaction;
+use App\Actions\UserBalanseAction;
 class TransactionController extends Controller
 {
     public function index()
     {
         return response()->json([
-            'data' => Transaction::with('category')->with('user')->latest()->get()
+            'data' => Transaction::all()
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreTransactionRequest $request)
     {
         $id = Auth::user()->id;
 
-        $validated = $request->validate([
-            'amount' => 'required|numeric|min:0.01',
-            'type' => 'required',
-            'category_id' => 'required|exists:categories,id',
-        ]);
+        $data = $request->all();
 
         $transaction = Transaction::create([
-            'amount' => $validated['amount'],
-            'category_id' => $validated['category_id'],
-            'type' => $validated['type'],
-            'user_id' => $id,
-            'date' => now()
+            'user_id'     => $id,
+            'amount'      => $data['amount'],
+            'description' => $data['description'],
+            'type'        => $data['type'],
+            'date'        => now()
         ]);
+
+        UserBalanseAction::execute(Auth::user(), $transaction);
 
         return response()->json([
             'data' => $transaction->load('user')

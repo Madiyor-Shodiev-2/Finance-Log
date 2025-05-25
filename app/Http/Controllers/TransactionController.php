@@ -7,29 +7,27 @@ use App\Http\Requests\StoreTransactionRequest;
 use App\Service\TransactionSummaryService;
 use App\Service\TransactionSummaryAll;
 use App\Actions\UserBalanseAction;
-use App\Http\Requests\UpdateTransactionRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transaction;
-use App\Models\Category;
 
 class TransactionController extends Controller
 {
+    protected $userId;
+    public function __construct()
+    {
+        $this->userId = Auth::user()->id;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-
-        $id = Auth::user()->id;
-        $transactions = TransactionSummaryService::getAll($id);
-
-        $categories = Category::all();
+        $transactions = TransactionSummaryService::getAll($this->userId);
 
         return view('main.transactions.index', [
-            'categories' => $categories,
-            'daily' => $transactions['daily'],
-            'monthly' => $transactions['monthly'],
-            'weekly' => $transactions['weekly']
+            'daily'        => $transactions['daily'],
+            'monthly'      => $transactions['monthly'],
+            'weekly'       => $transactions['weekly']
         ]);
     }
     /**
@@ -44,50 +42,44 @@ class TransactionController extends Controller
         $data['amount'] = BalanseAction::absIfNegative($request->amount);
 
         $transaction = Transaction::create([
-            'user_id'     => $id,
+            'user_id'     => $this->userId,
             'amount'      => $data['amount'],
-            'category_id' => $data['category_id'],
-            'type'        => $data['type'],
+            'description' => $data['description'],
             'date'        => now(),
+            'type'        => $data['type'],
         ]);
 
         UserBalanseAction::execute(Auth::user(), $transaction);
 
         return redirect()->route('home');
     }
-
     public function daily()
     {
-        $id = Auth::user()->id; 
-        $daily = TransactionSummaryAll::getDaily($id);
-        $dailyBalance = TransactionSummaryService::getDaily($id);
+        $daily = TransactionSummaryAll::getDaily($this->userId);
+        $dailyBalance = TransactionSummaryService::getDaily($this->userId);
 
         return view('main.transactions.daily', [
-            'daily' => $daily,
+            'daily'        => $daily,
             'dailyBalance' => $dailyBalance
         ]);
     }
     public function weekly()
     {
-        $id = Auth::user()->id; //fix me   
-        
-        $weekly = TransactionSummaryAll::getWeekly($id);
-        $week = TransactionSummaryService::getWeekly($id);
+        $weekly = TransactionSummaryAll::getWeekly($this->userId);
+        $week   = TransactionSummaryService::getWeekly($this->userId);
     
         return view('main.transactions.week', [
-            'weekly' => $weekly,
+            'weekly'        => $weekly,
             'weeklyBalance' => $week
         ]);
     }
     public function monthly()
     {   
-        $id = Auth::user()->id; //fix it
-
-        $monthly = TransactionSummaryAll::getMonthly($id);
-        $month = TransactionSummaryService::getMonthly($id);
+        $monthly = TransactionSummaryAll::getMonthly($this->userId);
+        $month   = TransactionSummaryService::getMonthly($this->userId);
 
         return view('main.transactions.monthly', [
-            'monthly' => $monthly,
+            'monthly'        => $monthly,
             'monthlyBalance' => $month
         ]);
     }

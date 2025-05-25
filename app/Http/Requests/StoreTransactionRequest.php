@@ -24,7 +24,7 @@ class StoreTransactionRequest extends FormRequest
         return [
             'amount'      => 'required|integer',
             'type'        => 'required',
-            'category_id' => 'required|integer|exists:categories,id'
+            'description' => 'required|max:20|min:3'
         ];
     }
 }

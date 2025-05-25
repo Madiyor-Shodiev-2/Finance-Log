@@ -3,9 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Category;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,25 +12,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        User::factory()->count(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'balance' => 127.78
+        $this->call([
+            TransactionSeeder::class
         ]);
-
-        // $this->call([
-        //     CategorySeeder::class,
-        //     TransactionSeeder::class,
-        // ]);
-
-        $label = ['Autobus', 'products', 'learning'];
-
-        foreach($label as $add){
-            Category::create([
-                'label' => $add
-            ]);
-        }
     }
 }
