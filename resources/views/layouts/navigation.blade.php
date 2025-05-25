@@ -11,10 +11,12 @@
                  <a href="/login" class="text-primary-600 hover:text-primary-700 font-medium">Log In</a>
                  <a href="/register" class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
                      Get Started
-                </a>
-                @else
-                <a href="{{ route('home')}}" class="text-gray-600 hover:text-primary-600 transition-colors">Dashboard</a>
-                <a href="{{ route('transactions.index') }}" class="text-gray-600 hover:text-primary-600 transition-colors">Transactions</a>
+                 </a>
+                 @else
+                 <a href="{{ route('home', ['locale' => 'ru']) }}">Русский</a>
+                 <a href="{{ route('home', ['locale' => 'en']) }}">English</a>
+                 <a href="{{ route('home', ['locale' => session('locale')])}}" class="text-gray-600 hover:text-primary-600 transition-colors">Dashboard</a>
+                 <a href="{{ route('transactions.index', ['locale' => session('locale')]) }}" class="text-gray-600 hover:text-primary-600 transition-colors">Transactions</a>
                  <form action="{{ route('logout') }}" method="POST">
                      @csrf
                      @method('POST')

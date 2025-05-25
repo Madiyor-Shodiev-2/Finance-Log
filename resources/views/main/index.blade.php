@@ -7,17 +7,17 @@
             <section class="py-12 sm:py-20 px-4 sm:px-6 lg:px-8">
                 <div class="max-w-4xl mx-auto text-center">
                     <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 mb-6">
-                        Take Control of <span class="text-primary-600">Your Money</span>
+                        {!!  __('messages.index.title') !!}
                     </h1>
                     <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-10">
-                        FinanceLog helps you track income and expenses with minimal effort, so you can focus on what matters.
+                        {{ __('messages.index.description') }}
                     </p>
                     <div class="flex flex-col sm:flex-row justify-center gap-4">
                         <a href="/register" class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-medium text-lg shadow-sm transition-colors">
-                            Start Tracking Now
+                            {{ __('messages.index.start_now') }}
                         </a>
                         <a href="#features" class="border border-gray-300 hover:bg-gray-50 text-gray-700 px-6 py-3 rounded-lg font-medium text-lg shadow-sm transition-colors">
-                            Learn More
+                            {{ __('messages.index.learn_more') }} 
                         </a>
                     </div>
                 </div>
@@ -35,9 +35,11 @@
             <section id="features" class="py-16 bg-white">
                 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="text-center mb-16">
-                        <h2 class="text-3xl font-bold text-gray-900 mb-4">Simple, Powerful Money Tracking</h2>
+                        <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                            {{ __('messages.index.features.title') }}
+                        </h2>
                         <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                            FinanceLog makes personal finance management effortless while providing meaningful insights.
+                            {{ __('messages.index.features.description') }}
                         </p>
                     </div>
                     <div class="grid md:grid-cols-3 gap-10">
@@ -45,27 +47,35 @@
                             <div class="bg-primary-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
                                 <span class="material-icons text-primary-600 text-2xl">insights</span>
                             </div>
-                            <h3 class="text-xl font-semibold mb-3">Track Spending</h3>
+                            <h3 class="text-xl font-semibold mb-3">
+                                {{ __('messages.index.features.card_title1') }}
+                            </h3>
                             <p class="text-gray-600">
-                                Monitor where every dollar goes with intuitive categorization and visual reports.
+                                {{ __('messages.index.features.card_description1') }}
                             </p>
                         </div>
                         <div class="bg-gray-50 rounded-xl p-6 hover:shadow-md transition-shadow">
                             <div class="bg-green-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                                <span class="material-icons text-green-600 text-2xl">trending_up</span>
+                                <span class="material-icons text-green-600 text-2xl">
+                                    trending_up
+                                </span>
                             </div>
-                            <h3 class="text-xl font-semibold mb-3">Income Analysis</h3>
+                            <h3 class="text-xl font-semibold mb-3">
+                                {{ __('messages.index.features.card_title2') }}
+                            </h3>
                             <p class="text-gray-600">
-                                Understand your cash flow patterns and identify opportunities to save more.
+                                {{ __('messages.index.features.card_description2') }}
                             </p>
                         </div>
                         <div class="bg-gray-50 rounded-xl p-6 hover:shadow-md transition-shadow">
                             <div class="bg-secondary-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
                                 <span class="material-icons text-secondary-600 text-2xl">category</span>
                             </div>
-                            <h3 class="text-xl font-semibold mb-3">Smart Categories</h3>
+                            <h3 class="text-xl font-semibold mb-3">
+                                {{ __('messages.index.features.card_title3') }}
+                            </h3>
                             <p class="text-gray-600">
-                                Automatic categorization for common expenses like food, transport, and bills.
+                                {{ __('messages.index.features.card_description3') }}
                             </p>
                         </div>
                     </div>
@@ -77,25 +87,33 @@
                 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex flex-col md:flex-row items-center gap-12">
                         <div class="md:w-1/2">
-                            <h2 class="text-3xl font-bold text-gray-900 mb-6">About FinanceLog</h2>
+                            <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                                {{ __('messages.index.about.title') }}
+                            </h2>
                             <p class="text-gray-600 mb-4">
-                                FinanceLog (formerly WhereMoneyGoes) is a minimalist web application designed to help you track personal income and expenses without unnecessary complexity.
+                                {{ __('messages.index.about.description') }}
                             </p>
                             <p class="text-gray-600 mb-6">
-                                Our MVP focuses on delivering essential financial insights with clarity, helping you monitor cash flow, analyze spending patterns, and make better money decisions.
+                                {{ __('messages.index.about.mission') }}
                             </p>
                             <ul class="space-y-3">
                                 <li class="flex items-start">
                                     <span class="material-icons text-green-500 mr-2">check_circle</span>
-                                    <span class="text-gray-600">Daily, monthly, and yearly spending analysis</span>
+                                    <span class="text-gray-600">
+                                        {{ __('messages.index.about.bullet1') }}
+                                    </span>
                                 </li>
                                 <li class="flex items-start">
                                     <span class="material-icons text-green-500 mr-2">check_circle</span>
-                                    <span class="text-gray-600">Intuitive transaction categorization</span>
+                                    <span class="text-gray-600">
+                                        {{ __('messages.index.about.bullet2') }}
+                                    </span>
                                 </li>
                                 <li class="flex items-start">
                                     <span class="material-icons text-green-500 mr-2">check_circle</span>
-                                    <span class="text-gray-600">Clean, distraction-free interface</span>
+                                    <span class="text-gray-600">
+                                        {{ __('messages.index.about.bullet3') }}
+                                    </span>
                                 </li>
                             </ul>
                         </div>
@@ -111,9 +129,11 @@
             <!-- CTA -->
             <section class="py-16 bg-primary-600 text-white">
                 <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-                    <h2 class="text-3xl font-bold mb-6">Ready to Take Control of Your Finances?</h2>
+                    <h2 class="text-3xl font-bold mb-6">
+                        {{ __('messages.index.cta.title') }}
+                    </h2>
                     <p class="text-lg text-primary-100 mb-8 max-w-2xl mx-auto">
-                        Join thousands of users who are already managing their money smarter with FinanceLog.
+                        {{ __('messages.index.cta.description') }}
                     </p>
                     <a href="/register" class="inline-block bg-white text-primary-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-medium text-lg shadow-md transition-colors">
                         Get Started for Free
