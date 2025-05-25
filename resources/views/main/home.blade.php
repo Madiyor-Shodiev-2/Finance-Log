@@ -130,10 +130,10 @@
             <div class="bg-white rounded-xl shadow-sm p-6">
                 <h3 class="text-lg font-medium text-gray-900 mb-4">Budget Categories</h3>
                 <div class="space-y-4">
-                    @foreach ($categories as $category)
+                    @foreach ($descriptions as $description)
                     <div>
                         <div class="flex justify-between text-sm mb-1">
-                            <span class="font-medium">{{ $category->label }}</span>
+                            <span class="font-medium">{{ $description->label }}</span>
                             <span>75%</span> <!-- Backend please -->
                         </div>
                         <div class="w-full bg-gray-200 rounded-full h-2">
@@ -166,7 +166,7 @@
                         </div>
                         <div class="flex-grow">
                             <div class="flex items-center justify-between">
-                                <p class="font-medium text-gray-900">{{ $transaction->category->label }}</p>
+                                <p class="font-medium text-gray-900">{{ $transaction->description }}</p>
                                 <p class="font-medium text-{{ $transaction->type ? 'green' : 'red' }}-600">${{ $transaction->amount }}</p>
                             </div>
                             <p class="text-sm text-gray-500 mt-1">{{ $transaction->type ? "Income" : "Expences" }} • {{ \Carbon\Carbon::parse($transaction->date)->format('M d, Y') }}</p>

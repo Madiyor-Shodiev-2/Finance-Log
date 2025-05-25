@@ -24,7 +24,7 @@ class StoreTransactionRequest extends FormRequest
         return [
             'amount'      => 'required|integer',
             'type'        => 'required',
-            'description' => 'required|maxl:20|min:3'
+            'description' => 'required|max:20|min:3'
         ];
     }
 }

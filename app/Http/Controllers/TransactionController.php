@@ -6,31 +6,27 @@ use App\Http\Requests\StoreTransactionRequest;
 use App\Service\TransactionSummaryService;
 use App\Service\TransactionSummaryAll;
 use App\Actions\UserBalanseAction;
-use App\Http\Requests\UpdateTransactionRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transaction;
-use App\Models\Category;
 
 class TransactionController extends Controller
 {
+    protected $userId;
+    public function __construct()
+    {
+        $this->userId = Auth::user()->id;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $id = Auth::user()->id;
-
-        $transactions = TransactionSummaryService::getAll($id);
-
-        $descriptions = Transaction::select('description')
-            ->where('user_id', '=', $id)
-            ->get();
+        $transactions = TransactionSummaryService::getAll($this->userId);
 
         return view('main.transactions.index', [
-            'descriptions' => $descriptions,
-            'daily' => $transactions['daily'],
-            'monthly' => $transactions['monthly'],
-            'weekly' => $transactions['weekly']
+            'daily'        => $transactions['daily'],
+            'monthly'      => $transactions['monthly'],
+            'weekly'       => $transactions['weekly']
         ]);
     }
     /**
@@ -38,21 +34,10 @@ class TransactionController extends Controller
      */
     public function store(StoreTransactionRequest $request)
     {
-        if(!Auth::check()){
-            return redirect()
-            ->back()
-            ->withErrors([
-                'auth' => 'Пожалуйста, зарегистрируйтесь или войдите в систему, чтобы 
-                добавить транзакцию.'
-            ]);
-        } // TODO: Возможно это не пригодится  
-
-        $id = Auth::user()->id;
-
         $data = $request->all();
 
         $transaction = Transaction::create([
-            'user_id'     => $id,
+            'user_id'     => $this->userId,
             'amount'      => $data['amount'],
             'description' => $data['description'],
             'date'        => now(),
@@ -63,40 +48,33 @@ class TransactionController extends Controller
 
         return redirect()->route('home');
     }
-
     public function daily()
     {
-        $id = Auth::user()->id;
-        
-        $daily = TransactionSummaryAll::getDaily($id);
-        $dailyBalance = TransactionSummaryService::getDaily($id);
+        $daily = TransactionSummaryAll::getDaily($this->userId);
+        $dailyBalance = TransactionSummaryService::getDaily($this->userId);
 
         return view('main.transactions.daily', [
-            'daily' => $daily,
+            'daily'        => $daily,
             'dailyBalance' => $dailyBalance
         ]);
     }
     public function weekly()
     {
-        $id = Auth::user()->id;   
-        
-        $weekly = TransactionSummaryAll::getWeekly($id);
-        $week = TransactionSummaryService::getWeekly($id);
+        $weekly = TransactionSummaryAll::getWeekly($this->userId);
+        $week   = TransactionSummaryService::getWeekly($this->userId);
     
         return view('main.transactions.week', [
-            'weekly' => $weekly,
+            'weekly'        => $weekly,
             'weeklyBalance' => $week
         ]);
     }
     public function monthly()
     {   
-        $id = Auth::user()->id;
-
-        $monthly = TransactionSummaryAll::getMonthly($id);
-        $month = TransactionSummaryService::getMonthly($id);
+        $monthly = TransactionSummaryAll::getMonthly($this->userId);
+        $month   = TransactionSummaryService::getMonthly($this->userId);
 
         return view('main.transactions.monthly', [
-            'monthly' => $monthly,
+            'monthly'        => $monthly,
             'monthlyBalance' => $month
         ]);
     }

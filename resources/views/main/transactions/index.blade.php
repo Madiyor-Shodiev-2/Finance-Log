@@ -23,9 +23,6 @@
             </div>
             @endif
 
-
-            <h1>User balance: {{ auth()->user()->balance }}</h1>
-            <h1>User Real balance: {{ auth()->user()->real_balance }}</h1>
             <h1 class="text-2xl font-bold mb-4 text-center">Add Transaction</h1>
             <form action="{{ route('transactions.store') }}" method="POST">
                 @csrf
@@ -33,19 +30,27 @@
                 <!-- Transaction Form -->
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Amount (USD)</label>
-                        <input name="amount" type="number" id="amount" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" placeholder="Enter amount" required>
+                        <label class="block text-sm font-medium text-gray-700">
+                            Amount (USD)
+                        </label>
+                        <input name="amount"
+                               type="number"
+                               id="amount"
+                               class="mt-1 block w-full p-2 border border-gray-300 rounded-md" 
+                               placeholder="Enter amount" 
+                               required>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Transaction label</label>
-                        <select name="category_id" id="category_id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-                            <option value="">Select label</option>
-                            @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->label }}</option>
-                            @endforeach
-                        </select>
-                        <button id="addNewTypeBtn" class="mt-2 text-sm text-blue-600 hover:underline">Add new type</button>
+                        <label from="description" class="block text-sm font-medium text-gray-700">
+                            Enter description
+                        </label>
+                        <input name="description" 
+                               type="text" 
+                               id="description" 
+                               class="mt-1 block w-full p-2 border border-gray-300 rounded-md" 
+                               placeholder="Enter description" 
+                               required>
                     </div>
 
                     <div>
